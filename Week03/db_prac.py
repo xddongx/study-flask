@@ -12,22 +12,22 @@ db = client.dbsparta                        # dbsparta라는 database에 접근�
 # doc = {'name':'bogo', 'age':22}
 # db.users.insert_one(doc)                    # users라는 collection안에 넣어라
 
-'''R: Read'''
-user = db.users.find_one({'name':'bogo'}, {'_id':0})
-print(user)
-
-same_ages = list(db.users.find({},{'_id':False}))
-
-for user in same_ages:
-    if user['age'] < 25:
-        print(user['name'])
+# '''R: Read'''
+# user = db.users.find_one({'name':'bogo'}, {'_id':0})
+# print(user)
+#
+# same_ages = list(db.users.find({},{'_id':False}))
+#
+# for user in same_ages:
+#     if user['age'] < 25:
+#         print(user['name'])
 
 '''U: Update'''
 # db.users.update_one({}, {'$set':{'name':'ddong'}})
 # db.users.update_one({'name':'ddong'}, {'$set':{'age': 28}})
 
-'''D: Delete'''
-db.users.delete_one({'name':'boddy'})
+# '''D: Delete'''
+# db.users.delete_one({'name':'boddy'})
 # # 저장 - 예시
 # doc = {'name':'bobby','age':21}
 # db.users.insert_one(doc)
@@ -43,3 +43,17 @@ db.users.delete_one({'name':'boddy'})
 #
 # # 지우기 - 예시
 # db.users.delete_one({'name':'bobby'})
+
+''' quiz'''
+# 1. 매트릭스 평정 가져오기
+point = db.movies.find_one({'title':'매트릭스'})['point']
+print(point)
+
+# 2. 매트릭스와 같은 평점의 영화 가져오기
+same_point = list(db.movies.find({'point':point}, {'_id':False}))
+for title in same_point:
+    if title != None:
+        print(title['title'])
+
+# 3. 매트릭스 평점 0으로 바꾸기
+db.movies.update_one({'title':'매트릭스'}, {'$set': {'point': '0'}})
